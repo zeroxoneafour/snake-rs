@@ -53,8 +53,6 @@ fn main() {
             KeyCode::Esc => break,
             _ => game.step(Directions::Keep),
         }
-        // clearing the screen honestly doesnt really do anything, idk why this is here
-        Clear(ClearType::All);
         if game.is_alive() {
             write!(stdout(), "{}", game);
         }
@@ -62,8 +60,7 @@ fn main() {
         stdout().flush();
         thread::sleep(Duration::from_millis(500));
     }
-    // still idk
-    Clear(ClearType::All);
+    stdout().execute(Clear(ClearType::Purge));
     stdout().execute(Show);
     disable_raw_mode();
     println!("Your final score was {}", game.get_score());
